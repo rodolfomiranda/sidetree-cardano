@@ -1,0 +1,14 @@
+{
+  "cardanoFeeSpendingCutoffInLovelaces": 10000000,
+  "cardanoWalletMnemonic": "carpet inhale swear broccoli chef acquire delay banner broom code caught addict trick tip album",
+  "cardanoNetwork": "testnet",
+  "minimunConfirmationToValidateTransaction": 6,
+  "blockfrostProjectId": "91r9xH8ZcPrmJbOKnf6GsFfYGTVspk6e",
+  "databaseName": "sidetree-cardano-testnet",
+  "mongoDbConnectionString": "mongodb://localhost:27017/",
+  "port": 3002,
+  "sidetreeTransactionFeeMarkupPercentage": 0,
+  "sidetreeTransactionPrefix": "sidetree:",
+  "cardanoMetadataLabel": "19710921",
+  "transactionPollPeriodInSeconds": 60
+}
