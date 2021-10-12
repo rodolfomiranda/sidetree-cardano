@@ -32,7 +32,7 @@ Additionally, and in order to facilitate and ilustrate DID operations, the folde
 ## Sidetree-Cardano's conventions
 Sidetree transactions anchored in Cardano blockchain follow these rules:
 1. Sidetree transactions are stored in Cardano blockchain as transaction metadata
-2. It uses a specific metadata top-level key to simplify the queries within the blockchain. We arbitrarily selected the key 31415926535897 (first 14 digit of Pi)
+2. It uses a specific metadata top-level key to simplify the queries within the blockchain. We arbitrarily selected the key 31415926 (first 8 digit of Pi)
 3. Sidetree specification requires to assign a Transaction Number to each sidetree transaction stored in the ledger, that must be a monotonically increasing number deterministically ordered. For the Transaction Number we use the block number and the index of the transaction in the block in the same way it is used in bitcoin sidetree implementation `transactionNumber = blockNumber * (2 ** 32) + txIndex`
 4. The metadata stored in Cardano is a string attacched to the top-level key defined above. The string follows the format "side-tree"+{anchor string as defined in sidetree protocol}
 5. DID method: `did:ada`
