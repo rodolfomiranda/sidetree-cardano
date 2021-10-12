@@ -1,5 +1,5 @@
 {
-  "batchingIntervalInSeconds": 30,
+  "batchingIntervalInSeconds": 60,
   "blockchainServiceUri": "http://127.0.0.1:3002",
   "databaseName": "ada-testnet-core",
   "didMethodName": "ada",

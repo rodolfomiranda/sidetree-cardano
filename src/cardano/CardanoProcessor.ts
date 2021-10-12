@@ -282,7 +282,6 @@ export default class CardanoProcessor {
    */
   private async getTransactionMetadatas (): Promise<String[]> {
     const lastProcessedTransaction = await this.transactionMetadataStore.getLast();
-    Logger.info('Last tx ' + JSON.stringify(lastProcessedTransaction));
     let lastTransactionFound = false;
     // start retrieving batch of 10 metadatas from page 1
     let batchSize = 10;
@@ -293,11 +292,9 @@ export default class CardanoProcessor {
       const txMetadatas = await this.cardanoClient.getTxMetadataPage(page, batchSize);
       for (const txMeta of txMetadatas) {
         if (txMeta.tx_hash === lastProcessedTransaction?.hash) {
-          Logger.info('Last Tx Metadata found');
           lastTransactionFound = true;
           break;
         } else {
-          Logger.info('Addin txhash ' + txMeta.tx_hash);
           metadataArray.push(txMeta.tx_hash);
         }
       }
