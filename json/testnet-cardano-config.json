@@ -3,7 +3,7 @@
   "cardanoWalletMnemonic": "keep tree divide arrive argue eager copper physical recycle agree broken senior feed mistake doll",
   "cardanoNetwork": "testnet",
   "minimunConfirmationToValidateTransaction": 1,
-  "blockfrostProjectId": "YOUR_BLOCKFROST_API_KEY",
+  "blockfrostProjectId": "91r9xH8ZcPrmJbOKnf6GsFfYGTVspk6e",
   "databaseName": "sidetree-cardano-testnet",
   "mongoDbConnectionString": "mongodb://localhost:27017/",
   "port": 3002,
