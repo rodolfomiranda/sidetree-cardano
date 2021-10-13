@@ -12,7 +12,7 @@ import Ipfs from '@decentralized-identity/sidetree/dist/lib/ipfs/Ipfs';
 import ResponseStatus from '@decentralized-identity/sidetree/dist/lib/common/enums/ResponseStatus';
 const cors = require('koa2-cors');
 
-/** Configuration used by this server. */
+/** Sidetree Core Service */
 interface ServerConfig extends SidetreeConfig {
   /** IPFS HTTP API endpoint URI. */
   ipfsHttpApiEndpointUri: string;

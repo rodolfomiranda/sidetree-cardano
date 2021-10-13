@@ -1,8 +1,8 @@
-/* eslint-disable camelcase */
 /**
- * Encapsulates the cardano transaction returned by the blockfrost service.
+ * Encapsulates transaction metadata
  */
 export default interface CardanoMetadataModel {
-  tx_hash: string;
-  json_metadata: string | null;
+  txHash: string;
+  jsonMetadata: string | null;
+  cborMetadata: string | null;
 }

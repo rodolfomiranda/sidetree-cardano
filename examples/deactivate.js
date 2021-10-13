@@ -1,4 +1,4 @@
-// Example on how to deactivate a DID
+/** Example on how to deactivate a DID */
 (async () => {
   const IonSdk = require('@decentralized-identity/ion-sdk');
   const request = require('request');
@@ -30,7 +30,7 @@
   });
   console.log('POST operation: ' + JSON.stringify(deactivateRequest));
 
-  // POST boddy to Sidetree-Cardano node
+  // POST boddy to Sidetree-Cardano node API
   const resp = await requestPromise({
     url: 'http://localhost:3000/operations',
     method: 'POST',

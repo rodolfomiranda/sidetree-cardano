@@ -1,7 +1,9 @@
 import { BlockFrostAPI } from '@blockfrost/blockfrost-js';
+import CardanoBlockModel from './models/CardanoBlockModel';
 import CardanoInputModel from './models/CardanoInputModel';
 import CardanoMetadataModel from './models/CardanoMetadataModel';
 import CardanoOutputModel from './models/CardanoOutputModel';
+import CardanoProtocolParameters from './models/CardanoProtocolParameters';
 import CardanoSidetreeTransactionModel from './models/CardanoSidetreeTransactionModel';
 import CardanoTransactionModel from './models/CardanoTransactionModel';
 import CardanoWallet from './CardanoWallet';
@@ -10,15 +12,13 @@ import Logger from '@decentralized-identity/sidetree/dist/lib/common/Logger';
 import TransactionNumber from './TransactionNumber';
 
 /**
- * Encapsulates functionality for reading/writing to the Cardano ledger.
+ * Encapsulates functionality for reading/writing to the Cardano ledger
+ * This implementation use Blockfrost to query the blockchain and submit transactions
+ * This class can easily be adapted to use othe APIs to interact with Cardano
  */
 export default class CardanoClient {
 
-  /** Blockfrost API Key */
-  // private readonly blockfrostProjectId?: string;
-
   private readonly cardanoWallet: ICardanoWallet;
-
   private readonly blockfrostAPI: BlockFrostAPI;
 
   constructor (
@@ -28,7 +28,6 @@ export default class CardanoClient {
     readonly cardanoMetadataLabel: string
   ) {
 
-    Logger.info('Creating cardano wallet using the import mnemonic passed in.');
     this.cardanoWallet = new CardanoWallet(cardanoWalletMnemonic, cardanoNetwork);
 
     this.blockfrostAPI = new BlockFrostAPI({ projectId: blockfrostProjectId, isTestnet: (this.cardanoNetwork === 'testnet') });
@@ -40,49 +39,42 @@ export default class CardanoClient {
    */
   public async initialize (): Promise<void> {
 
-    Logger.info(`Wallet loaded with address ${this.cardanoWallet.getAddress()}`);
+    Logger.info(`Wallet Address: ${this.cardanoWallet.getAddress()}`);
 
   }
 
   /**
-   * Submit the specified data transaction.
-   * @param cardanoSidetreeTransaction The transaction object.
+   * Submit the signed transaction to Cardano
+   * @param cardanoSidetreeTransaction The transaction object
+   * @returns the transaction hash
    */
   public async submitSidetreeTransaction (cardanoSidetreeTransaction: CardanoSidetreeTransactionModel): Promise<string> {
     const txId = await this.blockfrostAPI.txSubmit(cardanoSidetreeTransaction.txCBOR);
-    Logger.info(txId);
     return txId;
   }
 
   /**
-   * Creates (and NOT broadcasts) a transaction to write data to the Cardano.
-   *
-   * @param transactionData The metadadata to write in the transaction.
+   * Generates a valid transaction and sign it
+   * @returns the signed transaction
    */
   public async createSidetreeTransaction (transactionData: string): Promise<CardanoSidetreeTransactionModel> {
     const protoParams = await this.getLatestProtocolParameters();
     const ledgerTip = await this.getLedgetTip();
     const utxos = await this.getUtxos();
-    Logger.info(utxos);
     const transaction = this.cardanoWallet.createAndSignTransaction(transactionData, this.cardanoMetadataLabel, protoParams, utxos, ledgerTip.slot);
-
     return transaction;
   }
 
   /**
-   * Get UTXO from address to cover 1 ADA + fees = aprox 2 ADAS = 2000000 Lovelaces
-   *
+   * Get enough UTXO from address to cover 1 ADA + fees = aprox 1.5 ADAS = 1500000 Lovelaces
+   * @returns array of UTXOs
    */
   public async getUtxos (): Promise<CardanoInputModel[]> {
-    Logger.info('getting utxos');
     const address = this.cardanoWallet.getAddress().toString();
-    Logger.info('getting utxos for address ' + address);
     const addressUtxos = await this.blockfrostAPI.addressesUtxos(address);
-    Logger.info(addressUtxos);
     const utxos: CardanoInputModel[] = [];
     let totalValue = 0;
     for (const utxo of addressUtxos) {
-      Logger.info(utxo);
       utxos.push({
         address: address,
         amount: +utxo.amount[0].quantity,
@@ -90,39 +82,36 @@ export default class CardanoClient {
         index: utxo.tx_index
       });
       totalValue += +utxo.amount[0].quantity;
-      if (totalValue >= 2000000) { break; }
+      if (totalValue >= 1500000) { break; }
     }
-    Logger.info(utxos);
     return utxos;
   }
 
   /**
-   * Gets balance in Lovelaces from address
+   * Gets balance in Lovelaces for this node address
    * @returns the balance of the address in Lovelaces
    */
   public async getBalanceInLovelaces (): Promise<number> {
 
     const address = await this.blockfrostAPI.addresses(this.cardanoWallet.getAddress().toString());
     Logger.info(address);
-    return +address.amount[0].quantity; // TODO check if that allways valid
-
+    return +address.amount[0].quantity; // TODO check if that is allways valid
   }
 
   /**
-   * Gets the transaction fee of a transaction in lovelaces.
+   * Gets the transaction fee paid in lovelaces.
    * @param transactionHash the hash of the target transaction.
    * @returns the transaction fee in Lovelaces.
    */
   public async getTransactionFeeInLovelaces (transactionHash: string): Promise<number> {
-
     const tx = await this.blockfrostAPI.txs(transactionHash);
-    Logger.info(tx);
     return +tx.fees;
   }
 
   /**
-   * Get full transaction data.
+   * Get the full transaction data from th blockchain
    * @param transactionHash The target transaction id.
+   * @returns the full tramsaction
    */
   public async getTransaction (transactionHash: string): Promise<CardanoTransactionModel> {
     const tx = await this.blockfrostAPI.txs(transactionHash);
@@ -153,7 +142,6 @@ export default class CardanoClient {
     } catch (error) {
       txmeta = '';
     }
-    Logger.info(txmeta);
     return {
       outputs: outputs,
       inputs: inputs,
@@ -180,26 +168,56 @@ export default class CardanoClient {
   public async getTxMetadataPage (page: number, batchSize: number): Promise<CardanoMetadataModel[]> {
     const txMetadatas: CardanoMetadataModel[] = [];
     try {
-      const txMetadatas = await this.blockfrostAPI.metadataTxsLabel(this.cardanoMetadataLabel, { page: page, order: 'desc', count: batchSize });
+      const blockFrostMetadatas = await this.blockfrostAPI.metadataTxsLabel(this.cardanoMetadataLabel, { page: page, order: 'desc', count: batchSize });
+      for (const meta of blockFrostMetadatas) {
+        txMetadatas.push(
+          {
+            txHash: meta.tx_hash,
+            jsonMetadata: meta.json_metadata,
+            cborMetadata: null
+          }
+        );
+      }
       return txMetadatas;
     } catch (error) {
       return txMetadatas;
     }
-
   }
 
-  private async getLatestProtocolParameters (): Promise<any> {
-    Logger.info('Getting protocol parameters');
+  /**
+   * Get the latest cardano blockchain protocol parameters
+   * @returns the protocol parameters
+   */
+  private async getLatestProtocolParameters (): Promise<CardanoProtocolParameters> {
     const latestEpoch = await this.blockfrostAPI.epochsLatest();
-    Logger.info(latestEpoch);
     const protocolParams = await this.blockfrostAPI.epochsParameters(latestEpoch.epoch);
-    Logger.info(protocolParams);
-    return protocolParams;
+    return {
+      epoch: protocolParams.epoch,
+      minFeeA: protocolParams.min_fee_a,
+      minFeeB: protocolParams.min_fee_b,
+      maxTxSize: protocolParams.max_tx_size,
+      keyDeposit: +protocolParams.key_deposit,
+      poolDeposit: +protocolParams.pool_deposit,
+      minUtxo: +protocolParams.min_utxo,
+      maxValSize: +protocolParams.max_val_size!
+    };
   }
 
-  public async getLedgetTip (): Promise<any> {
+  /**
+   * Get the latest block in Cardano
+   * @returns the latest block
+   */
+  public async getLedgetTip (): Promise<CardanoBlockModel> {
     const latestBlock = await this.blockfrostAPI.blocksLatest();
-    return latestBlock;
+    return {
+      time: latestBlock.time,
+      height: latestBlock.height!,
+      hash: latestBlock.hash,
+      slot: latestBlock.slot,
+      epoch: latestBlock.epoch,
+      size: latestBlock.size,
+      confirmations: latestBlock.confirmations
+    };
   }
 
 }

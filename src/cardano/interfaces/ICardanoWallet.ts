@@ -1,4 +1,5 @@
 import CardanoInputModel from '../models/CardanoInputModel';
+import CardanoProtocolParameters from '../models/CardanoProtocolParameters';
 import CardanoSidetreeTransactionModel from '../models/CardanoSidetreeTransactionModel';
 
 /**
@@ -12,16 +13,16 @@ export default interface ICardanoWallet {
   getAddress (): String;
 
   /**
-   * Signs the specified transaction using the keys associated with this wallet.
+   * Create and sign a transaction.
    *
-   * @param transaction The transaction to sign.
+   * @param transaction The transaction.
    *
    * @returns The signed transaction.
    */
    createAndSignTransaction (
      anchorString: String,
      metadataLabel: String,
-     protocolParameters: any,
+     protocolParameters: CardanoProtocolParameters,
      utxos: CardanoInputModel[],
      ledgerTip: number | null
      ): CardanoSidetreeTransactionModel;

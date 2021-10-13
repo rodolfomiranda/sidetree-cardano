@@ -1,4 +1,4 @@
-// Example on how to create a DID
+/**  Example on how to create a DID */
 (async () => {
   const IonSdk = require('@decentralized-identity/ion-sdk');
   const randomBytes = require('randombytes');
@@ -9,7 +9,7 @@
   const requestPromise = util.promisify(request);
 
   // Generate update and recovery keys for sidetree protocol
-  // Should be stored somewhere, you'll need the to updates and recovery of your DID
+  // Should be stored somewhere, you'll need later for updates and recovery of your DID
   const updateKey = await generateKeyPair('secp256k1'); // also supports Ed25519
   console.log('Your update key:');
   console.log(updateKey);
@@ -17,13 +17,13 @@
   console.log('Your recovery key:');
   console.log(recoveryKey);
 
-  // Generate authentication key for W3C DID Document
-  // Should be stored somewhere, you'll need it for your Verifiable Credentials
+  // Generate authentication key for the W3C DID Document
+  // Should be stored somewhere, you'll need it later for your proofs
   const authnKeys = await generateKeyPair('secp256k1'); // also supports Ed25519
   console.log('Your DID authentication key:');
   console.log(authnKeys);
 
-  // Create you W3C DID document
+  // Create you rW3C DID document
   const didDocument = {
     publicKeys: [
       {
@@ -42,7 +42,7 @@
     ]
   };
 
-  // Create request body ready to be posted in /operations of Sidetree API
+  // Create the request body ready to be posted in /operations of Sidetree API
   const createRequest = await IonSdk.IonRequest.createCreateRequest({
     recoveryKey: recoveryKey.publicJwk,
     updateKey: updateKey.publicJwk,
@@ -50,7 +50,7 @@
   });
   console.log('POST operation: ' + JSON.stringify(createRequest));
 
-  // POST boddy to Sidetree-Cardano node
+  // POST request body to Sidetree-Cardano node API
   const resp = await requestPromise({
     url: 'http://localhost:3000/operations',
     method: 'POST',
@@ -58,8 +58,10 @@
   });
   const respBody = JSON.parse(resp.body);
   console.log(respBody);
+  console.log('Your generated DID: ' + respBody.didDocument.id);
 
   // Helper function to generate keys
+  // You can use your prefered key generator
   // type: secp256k1 | Ed25519
   async function generateKeyPair (type) {
     let keyGenerator = secp256k1.Secp256k1KeyPair;

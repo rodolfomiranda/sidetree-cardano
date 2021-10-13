@@ -24,7 +24,6 @@ Additionally, and in order to facilitate and ilustrate DID operations, the folde
 
 ## TODO's
 * Improve error handling
-* Abstraction from Blockfrost types
 * Implement spending monitor (control wallet balance and spending rate limits)
 * Implement versioning manager
 * Add unit tests

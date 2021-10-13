@@ -5,7 +5,7 @@ import * as querystring from 'querystring';
 import ISidetreeCardanoConfig from './cardano/ICardanoConfig';
 import SidetreeCardanoProcessor from './cardano/CardanoProcessor';
 
-/** Cardano service configuration parameters */
+/** Cardano Service  */
 interface ICardanoServiceConfig extends ISidetreeCardanoConfig {
   /** Boolean to control if error thrown by request handler is logged. */
   logRequestError?: boolean;
@@ -102,12 +102,6 @@ router.post('/transactions', async (ctx, _next) => {
   const requestHandler = () => blockchainService.writeTransaction(writeRequest.anchorString);
   await handleRequestAndSetKoaResponse(requestHandler, ctx.response);
 });
-
-// router.post('/transactions/firstValid', async (ctx, _next) => {
-//   const transactionsObject = JSON.parse(ctx.body);
-//   const requestHandler = () => blockchainService.firstValidTransaction(transactionsObject.transactions);
-//   await handleRequestAndSetKoaResponse(requestHandler, ctx.response);
-// });
 
 router.get('/time', async (ctx, _next) => {
   const requestHandler = () => blockchainService.time();

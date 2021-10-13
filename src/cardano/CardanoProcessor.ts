@@ -291,11 +291,11 @@ export default class CardanoProcessor {
     while (!lastTransactionFound) {
       const txMetadatas = await this.cardanoClient.getTxMetadataPage(page, batchSize);
       for (const txMeta of txMetadatas) {
-        if (txMeta.tx_hash === lastProcessedTransaction?.hash) {
+        if (txMeta.txHash === lastProcessedTransaction?.hash) {
           lastTransactionFound = true;
           break;
         } else {
-          metadataArray.push(txMeta.tx_hash);
+          metadataArray.push(txMeta.txHash);
         }
       }
       if (txMetadatas.length < batchSize) { lastTransactionFound = true; }

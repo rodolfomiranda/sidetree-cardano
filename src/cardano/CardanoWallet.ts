@@ -1,6 +1,7 @@
 // import * as bip39 from 'bip39-light';
 import * as cardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
 import CardanoInputModel from './models/CardanoInputModel';
+import CardanoProtocolParameters from './models/CardanoProtocolParameters';
 import CardanoSidetreeTransactionModel from './models/CardanoSidetreeTransactionModel';
 import ErrorCode from './ErrorCode';
 import ICardanoWallet from './interfaces/ICardanoWallet';
@@ -66,19 +67,19 @@ export default class CardanoWallet implements ICardanoWallet {
   public createAndSignTransaction (
     anchorString: String,
     metadataLabel: String,
-    protocolParameters: any,
+    protocolParameters: CardanoProtocolParameters,
     utxos: CardanoInputModel[],
     ledgerTip: number | null): CardanoSidetreeTransactionModel {
     const txBuilder = cardanoWasm.TransactionBuilder.new(
       cardanoWasm.LinearFee.new(
-        cardanoWasm.BigNum.from_str(protocolParameters.min_fee_a.toString()),
-        cardanoWasm.BigNum.from_str(protocolParameters.min_fee_b.toString())
+        cardanoWasm.BigNum.from_str(protocolParameters.minFeeA.toString()),
+        cardanoWasm.BigNum.from_str(protocolParameters.minFeeB.toString())
       ),
-      cardanoWasm.BigNum.from_str(protocolParameters.min_utxo.toString()),
-      cardanoWasm.BigNum.from_str(protocolParameters.pool_deposit.toString()),
-      cardanoWasm.BigNum.from_str(protocolParameters.key_deposit.toString()),
-      protocolParameters.max_val_size,
-      protocolParameters.max_tx_size
+      cardanoWasm.BigNum.from_str(protocolParameters.minUtxo.toString()),
+      cardanoWasm.BigNum.from_str(protocolParameters.poolDeposit.toString()),
+      cardanoWasm.BigNum.from_str(protocolParameters.keyDeposit.toString()),
+      protocolParameters.maxValSize,
+      protocolParameters.maxTxSize
     );
     // add all inputs with address, utxos and value
     for (const utxo of utxos) {

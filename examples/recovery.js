@@ -6,6 +6,9 @@
   const util = require('util');
   const requestPromise = util.promisify(request);
 
+  // You need the DID suffix
+  const didSuffix = 'EiBxybhTu8_RJJzmL07edduRbt6wqHCuwvW4lM2wKuy3Fw';
+
   // You need your recovery key generated when creating the DID
   const recoveryKey = {
     publicJwk: {
@@ -24,12 +27,12 @@
   };
 
   // Generate a new update key
-  // Should be stored somewhere, you'll need it for your Verifiable Credentials
+  // Should be stored somewhere, you'll need it later for your proofs
   const newUpdateKey = await ION.generateKeyPair('secp256k1'); // also supports Ed25519
   console.log('Your new updaate key:');
   console.log(newUpdateKey);
 
-  // You need to regenerate or reuse all keys used un DID document
+  // You need to regenerate or reuse all keys used in the DID document
   const authKeys = {
     publicJwk: {
       kty: 'EC',
@@ -66,21 +69,21 @@
   };
 
   // Create the recovery request body ready to be posted in /operations of Sidetree API
-  const updateRequest = await IonSdk.IonRequest.createRecoverRequest({
-    didSuffix: 'EiBNEmIolaIKXiyrmC58UoaCYzaD0q1FvXOcX2di-6isdg',
+  const recoveryRequest = await IonSdk.IonRequest.createRecoverRequest({
+    didSuffix: didSuffix,
     signer: IonSdk.LocalSigner.create(recoveryKey.privateJwk),
     recoveryPublicKey: recoveryKey.publicJwk,
     nextRecoveryPublicKey: recoveryKey.publicJwk, // recommended to change recovery key
     nextUpdatePublicKey: newUpdateKey.publicJwk,
     document: didDocument
   });
-  console.log('POST operation: ' + JSON.stringify(updateRequest));
+  console.log('POST operation: ' + JSON.stringify(recoveryRequest));
 
-  // POST boddy to Sidetree-Cardano node
+  // POST recovery boddy to Sidetree-Cardano node API
   const resp = await requestPromise({
     url: 'http://localhost:3000/operations',
     method: 'POST',
-    body: JSON.stringify(updateRequest)
+    body: JSON.stringify(recoveryRequest)
   });
   console.log(resp.statusMessage);
 

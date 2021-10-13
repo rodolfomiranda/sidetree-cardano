@@ -1,5 +1,5 @@
 /**
- * Encapsulates data for the outputs for a transaction.
+ * Encapsulates data for the outputs of a transaction.
  */
 export default interface CardanoOutputModel {
   address: string;

@@ -1,6 +1,5 @@
 /**
- * Encapsulates the data about a transaction which is used to store raw-data on the cardano. This
- * transaction is yet to be broadcasted.
+ * Encapsulates a signed cardano transasction
  */
 export default interface CardanoSidetreeTransactionModel {
   txHash: string;

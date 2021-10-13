@@ -1,4 +1,4 @@
-// Example on how to update a DID
+/** Example on how to update a DID */
 (async () => {
   const randomBytes = require('randombytes');
   const ed25519 = require('@transmute/did-key-ed25519');
@@ -8,7 +8,10 @@
   const util = require('util');
   const requestPromise = util.promisify(request);
 
-  // You need the update key generated when creating the DID
+  // You need the DID suffix
+  const didSuffix = 'EiBxybhTu8_RJJzmL07edduRbt6wqHCuwvW4lM2wKuy3Fw';
+
+  // You need the update private key generated when creating the DID
   const updateKey = {
     publicJwk: {
       kty: 'EC',
@@ -25,15 +28,15 @@
     }
   };
 
-  // Generate a new authentication key to be updated in the W3C DID document in this example
-  // Should be stored somewhere, you'll need it for your Verifiable Credentials
+  // Generate a new authentication key to be updated in the W3C DID document for this example
+  // Should be stored somewhere, you'll need it later in for your proofs
   const newAuthnKeys = await generateKeyPair('secp256k1'); // also supports Ed25519
   console.log('Your new DID authentication key:');
   console.log(newAuthnKeys);
 
-  // Create the update operation updating the authorization key and services
+  // Create the update operation. In this exaample we update the authorization key and services
   const updateOperation = {
-    didSuffix: 'EiBxybhTu8_RJJzmL07edduRbt6wqHCuwvW4lM2wKuy3Fw',
+    didSuffix: didSuffix,
     idsOfPublicKeysToRemove: ['key-1'],
     publicKeysToAdd: [
       {
@@ -64,7 +67,7 @@
   });
   console.log('POST operation: ' + JSON.stringify(updateRequest));
 
-  // POST boddy to Sidetree-Cardano node
+  // POST the update boddy to Sidetree-Cardano node API
   const resp = await requestPromise({
     url: 'http://localhost:3000/operations',
     method: 'POST',
@@ -73,6 +76,7 @@
   console.log(resp.statusMessage);
 
   // Helper function to generate keys
+  // You can use your prefered key generator
   // type: secp256k1 | Ed25519
   async function generateKeyPair (type) {
     let keyGenerator = secp256k1.Secp256k1KeyPair;
