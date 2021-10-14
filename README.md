@@ -18,12 +18,13 @@ Take note that this project is in Beta phase and improving is underway. Testing 
 7. Run `yarn start`
 
 ## Try out some DID operations
-Sidetree-Cardano expose a [REST API](https://identity.foundation/sidetree/api/) to interact with it. At start up a swagger UI is deployed at `http://localhost:8080` that help with API requests. 
+Sidetree-Cardano expose a [REST API](https://identity.foundation/sidetree/api/) to interact with it. At start up a swagger UI is deployed at `http://localhost:8080` that help with API requests (you can remove it from `start` script if you won't use it). 
 
 Additionally, and in order to facilitate and ilustrate DID operations, the folder `examples` contains snippets to create, update, recover, deactivate and resolve DIDs. For the example we use the handy [ios-sdk](https://github.com/decentralized-identity/ion-sdk) for operation generation.
 
 ## TODO's
 * Improve error handling
+* Implement cardanoClient versions with Gimbalabs API and with db-sync direct queries 
 * Implement spending monitor (control wallet balance and spending rate limits)
 * Implement versioning manager
 * Add unit tests
@@ -55,4 +56,7 @@ Sidetree transactions anchored in Cardano blockchain follow these rules:
 
 * See the [latest spec](https://identity.foundation/sidetree/spec/) for the full Sidetree specification.
 * See the [API spec](https://identity.foundation/sidetree/api/) for the full API specification to interact with a Sidetree node.
+
+## Bugs, questions, ideas
+Please, [open a github issue](https://github.com/rodolfomiranda/sidetree-cardano/issues) in this repo.
 
