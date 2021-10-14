@@ -20,7 +20,7 @@ Take note that this project is in Beta phase and improving is underway. Testing 
 ## Try out some DID operations
 Sidetree-Cardano expose a [REST API](https://identity.foundation/sidetree/api/) to interact with it. At start up a swagger UI is deployed at `http://localhost:8080` that help with API requests (you can remove it from `start` script if you won't use it). 
 
-Additionally, and in order to facilitate and ilustrate DID operations, the folder `examples` contains snippets to create, update, recover, deactivate and resolve DIDs. For the example we use the handy [ios-sdk](https://github.com/decentralized-identity/ion-sdk) for operation generation.
+Additionally, and in order to facilitate and ilustrate DID operations, the folder `examples` contains snippets to create, update, recover, deactivate and resolve DIDs. For the example we use the handy [ion-sdk](https://github.com/decentralized-identity/ion-sdk) for operation generation.
 
 ## TODO's
 * Improve error handling
