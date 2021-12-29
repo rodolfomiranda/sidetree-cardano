@@ -5,7 +5,7 @@
   const requestPromise = util.promisify(request);
 
   // DID to resolve
-  const did = 'did:ada:EiAfpzF6M3y4wroXcsFApY9hRvCBIzjICcX0iCDrpH-6KQ';
+  const did = 'did:ada:EiBQhJycDRPddOpTwAAvdLKIwRC3wqik-x3-wQ-oiZgNaQ';
 
   // GET resolution from Sidetree-Cardano node
   // If you receive a did_not_found response, note that

@@ -4,7 +4,7 @@
 
 **Sidetree-Cardano** nodes provide a public, permissionless, Decentralized Identifier (DID) Layer 2 network that support scalable DIDs/DPKI operations.
 
-This develpment is also part of [my proposal](https://cardano.ideascale.com/a/dtd/Interoperability-as-growth-driver/368705-48088) submitted to Fund 6 of Cardano Catalyst. Voting is open until October 21st. If you want to contribute, **please vote for my project!**
+This develpment is also part of my proposal [Interoperability as Growth Driver](https://cardano.ideascale.com/a/dtd/Interoperability-as-growth-driver/368705-48088) submitted to Fund 6 of Cardano Catalyst and that **got funded**. Thanks for voting!!! [Here]() is a list of my proposals for Fund 7.
 
 Take note that this project is in Beta phase and improving is underway. Testing and collaboration are welcomed!
 
@@ -13,7 +13,7 @@ Take note that this project is in Beta phase and improving is underway. Testing 
 2. Install and run [IPFS](https://docs.ipfs.io/install/)
 3. Clone the repo `git clone git@github.com:rodolfomiranda/sidetree-cardano.git`
 4. Install required packages `npm install`
-5. Configure wallet mnemonic ([with funds](https://testnets.cardano.org/en/testnets/cardano/tools/faucet/)) and [Blockfrost](https://blockfrost.io) projectId in `json\testnet-cardano-config.json`
+5. Configure wallet mnemonic ([with funds](https://testnets.cardano.org/en/testnets/cardano/tools/faucet/))
 6. Build `yarn build`
 7. Run `yarn start`
 
@@ -24,7 +24,6 @@ Additionally, and in order to facilitate and ilustrate DID operations, the folde
 
 ## TODO's
 * Improve error handling
-* Implement cardanoClient versions with Gimbalabs API and with db-sync direct queries 
 * Implement spending monitor (control wallet balance and spending rate limits)
 * Implement versioning manager
 * Add unit tests
@@ -32,7 +31,7 @@ Additionally, and in order to facilitate and ilustrate DID operations, the folde
 ## Sidetree-Cardano's conventions
 Sidetree transactions anchored in Cardano blockchain follow these rules:
 1. Sidetree transactions are stored in Cardano blockchain as transaction metadata.
-2. It uses a specific metadata top-level key to simplify the queries within the blockchain. We arbitrarily selected the key 31415926 (first 8 digit of Pi).
+2. It uses a specific metadata top-level key to simplify the queries within the blockchain. We arbitrarily selected the key  **74338733** ('sidetree' in T9 encoding).
 3. Sidetree specification requires to assign a Transaction Number to each sidetree transaction stored in the ledger, that must be a monotonically increasing number deterministically ordered. For the Transaction Number we use the block number and the index of the transaction in the block in the same way it is used in bitcoin sidetree implementation `transactionNumber = blockNumber * (2 ** 32) + txIndex`.
 4. The metadata stored in Cardano is a string attacched to the top-level key defined above. The string follows the format `"sidetree:"+{anchor string as defined in sidetree protocol}`
 5. DID method: `did:ada`
@@ -49,7 +48,7 @@ Sidetree transactions anchored in Cardano blockchain follow these rules:
 }
 ```
 7. Tranasction: it use the first derived shelley address from mnemonics to transfer 1 ADA to itself and write metadata. The only cost is the tranasction fee that is around 0.17 - 0.18 ADA.
-8. Interaction with Cardano blockchain is provided by blockfrost API initially. But it can easily extend to other APIs just as Gimbalabs Dandelion API, or direct queries if running side by side with a node and db-sync.
+8. Interaction with Cardano blockchain is provided by Gimbalabs [Dandelion API](https://gimbalabs.com/dandelion) or by [Blockfrost](https://blockfrost.io). You need select correct import in src/CardanoClient.ts (if you use Bockfrost also need to configure your projectId in json/testnet-cardano-config.json)
 9. The protocol waits for a minumun block confirmations until we accepts the transactions as valid. The greated the safer, but it takes longer to have the DID published in blockchain.
 10. Proof of fee and Value Locking are not implememted.
 ## DIF Specifications

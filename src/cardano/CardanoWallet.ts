@@ -134,6 +134,7 @@ export default class CardanoWallet implements ICardanoWallet {
 
     return {
       txCBOR: this.toHexString(transaction.to_bytes()),
+      txBytes: transaction.to_bytes(),
       txHash: this.toHexString(txHash.to_bytes()),
       fees: +(txBuilder.get_fee_if_set()?.to_str() || 0)
     };

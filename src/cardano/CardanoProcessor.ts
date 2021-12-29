@@ -362,8 +362,6 @@ export default class CardanoProcessor {
 
   //   const transactionsToReturn: TransactionModel[] = [];
 
-
-
   //   // while need more blocks and have not reached the processed block
   //   while (transactionsToReturn.length === 0 && inclusiveBeginTransactionTime <= maxBlockHeight) {
   //     const exclusiveEndTransactionTime = inclusiveBeginTransactionTime + CardanoProcessor.pageSizeInBlocks;

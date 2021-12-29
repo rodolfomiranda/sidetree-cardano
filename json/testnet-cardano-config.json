@@ -3,12 +3,12 @@
   "cardanoWalletMnemonic": "keep tree divide arrive argue eager copper physical recycle agree broken senior feed mistake doll",
   "cardanoNetwork": "testnet",
   "minimunConfirmationToValidateTransaction": 1,
-  "blockfrostProjectId": "91r9xH8ZcPrmJbOKnf6GsFfYGTVspk6e",
+  "blockfrostProjectId": "xxxxxxxx",
   "databaseName": "sidetree-cardano-testnet",
   "mongoDbConnectionString": "mongodb://localhost:27017/",
   "port": 3002,
   "sidetreeTransactionFeeMarkupPercentage": 0,
   "sidetreeTransactionPrefix": "sidetree:",
-  "cardanoMetadataLabel": "31415926",
+  "cardanoMetadataLabel": "74338733",
   "transactionPollPeriodInSeconds": 60
 }
