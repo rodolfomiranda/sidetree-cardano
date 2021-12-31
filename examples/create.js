@@ -60,7 +60,7 @@
     body: JSON.stringify(createRequest)
   });
   const respBody = JSON.parse(resp.body);
-  console.log(respBody);
+  console.log(JSON.stringify(respBody));
   console.log('Your generated DID: ' + respBody.didDocument.id);
 
   // Helper function to generate keys
