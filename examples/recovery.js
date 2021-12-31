@@ -6,6 +6,9 @@
   const util = require('util');
   const requestPromise = util.promisify(request);
 
+  // const nodeURL = 'http://localhost:3000';
+  const nodeURL = 'https://mnwbfd1eg2.execute-api.us-east-1.amazonaws.com/cardano';
+
   // You need the DID suffix
   const didSuffix = 'EiBxybhTu8_RJJzmL07edduRbt6wqHCuwvW4lM2wKuy3Fw';
 
@@ -81,7 +84,7 @@
 
   // POST recovery boddy to Sidetree-Cardano node API
   const resp = await requestPromise({
-    url: 'http://localhost:3000/operations',
+    url: nodeURL + '/operations',
     method: 'POST',
     body: JSON.stringify(recoveryRequest)
   });

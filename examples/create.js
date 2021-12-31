@@ -8,6 +8,9 @@
   const util = require('util');
   const requestPromise = util.promisify(request);
 
+  // const nodeURL = 'http://localhost:3000';
+  const nodeURL = 'https://mnwbfd1eg2.execute-api.us-east-1.amazonaws.com/cardano';
+
   // Generate update and recovery keys for sidetree protocol
   // Should be stored somewhere, you'll need later for updates and recovery of your DID
   const updateKey = await generateKeyPair('secp256k1'); // also supports Ed25519
@@ -52,7 +55,7 @@
 
   // POST request body to Sidetree-Cardano node API
   const resp = await requestPromise({
-    url: 'http://localhost:3000/operations',
+    url: nodeURL + '/operations',
     method: 'POST',
     body: JSON.stringify(createRequest)
   });
