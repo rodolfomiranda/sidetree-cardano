@@ -214,7 +214,7 @@ Finally, the generated body is POSTed to the `/operations` method of the sidetre
    }
 }
 ```
-The `id` of the document shows your new DID:
+The `id` of the document shows your newly created DID:
 `did:ada:EiDfLfmqWKLEgbALdWg2jj3m8LFbfFSwPdee6JvFE5VfTQ`
 
 ## Resolve your DID into a DID Document
@@ -222,7 +222,7 @@ Sidetree-Cardano writes sidetree documents in the ledger as transaction metadata
 
 DID resolution is a simple GET request to `/identifiers/{did}`. You can use the code provided in `resolve.js` or just execute a simple `curl` from your bash terminal:
 
-`curl https://mnwbfd1eg2.execute-api.us-east-1.amazonaws.com/cardano/identifiers/did:ada:EiDfLfmqWKLEgbALdWg2jj3m8LFbfFSwPdee6JvFE5VfTQ`
+`curl https://testnet.sidetree-cardano.com/identifiers/did:ada:EiDfLfmqWKLEgbALdWg2jj3m8LFbfFSwPdee6JvFE5VfTQ`
 ```
 {
    "@context":"https://w3id.org/did-resolution/v1",

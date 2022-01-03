@@ -9,7 +9,7 @@
   const requestPromise = util.promisify(request);
 
   // const nodeURL = 'http://localhost:3000';
-  const nodeURL = 'https://mnwbfd1eg2.execute-api.us-east-1.amazonaws.com/cardano';
+  const nodeURL = 'https://testnet.sidetree-cardano.com/cardano';
 
   // Generate update and recovery keys for sidetree protocol
   // Should be stored somewhere, you'll need later for updates and recovery of your DID
