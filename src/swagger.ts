@@ -17,6 +17,6 @@ app.get('/api.yml', function (_request: any, response: { sendFile: (arg0: string
 });
 
 // Start webserver on port 8080
-app.listen(8080);
+app.listen(8090);
 
-console.log('Access Swagger at http://localhost:8080');
+console.log('Access Swagger at http://localhost:8090');
