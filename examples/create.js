@@ -8,8 +8,8 @@
   const util = require('util');
   const requestPromise = util.promisify(request);
 
-  // const nodeURL = 'http://localhost:3000';
-  const nodeURL = 'https://testnet.sidetree-cardano.com/cardano';
+  const nodeURL = 'http://localhost:3000';
+  // const nodeURL = 'https://testnet.sidetree-cardano.com/cardano';
 
   // Generate update and recovery keys for sidetree protocol
   // Should be stored somewhere, you'll need later for updates and recovery of your DID

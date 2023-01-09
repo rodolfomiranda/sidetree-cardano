@@ -4,6 +4,12 @@ privatenotes.md
 *.log
 .DS_Store
 
+# docker compose volume
+compose
+
+# nix build artefacts
+result
+
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

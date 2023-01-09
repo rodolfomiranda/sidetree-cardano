@@ -25,6 +25,7 @@
     "koa-router": "^10.1.1",
     "koa2-cors": "^2.0.6",
     "request": "^2.88.2",
+    "yarn": "^1.22.19",
     "yarn-run-all": "^3.1.1"
   },
   "devDependencies": {
@@ -57,5 +58,6 @@
     "core": "node dist/core.js",
     "cardano": "node dist/cardano.js",
     "swagger": "node dist/swagger.js"
-  }
+  },
+  "packageManager": "yarn@3.3.1"
 }
