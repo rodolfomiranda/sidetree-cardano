@@ -19,12 +19,16 @@ in pkgs.mkShell {
   # Especially dependencies with native modules may need a Python installation.
   buildInputs = [ 
     nodejs
-    yarn 
+    yarn
+    pkgs.typescript
+    pkgs.nodePackages.typescript
+    pkgs.nodePackages.typescript-language-server   
   ];
 
   # Example of invoking a build step in your project.
   shellHook = ''
     yarn set version berry
+
   '';
 
 }

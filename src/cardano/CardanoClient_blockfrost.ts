@@ -8,7 +8,7 @@ import CardanoSidetreeTransactionModel from './models/CardanoSidetreeTransaction
 import CardanoTransactionModel from './models/CardanoTransactionModel';
 import CardanoWallet from './CardanoWallet';
 import ICardanoWallet from './interfaces/ICardanoWallet';
-import Logger from '@decentralized-identity/sidetree/dist/lib/common/Logger';
+import Logger from '@k-solutions/sidetree/lib/common/Logger';
 import TransactionNumber from './TransactionNumber';
 
 /**

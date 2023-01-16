@@ -30,7 +30,7 @@
   const didDocument = {
     publicKeys: [
       {
-        id: 'key-1',
+        id: 'key-02',
         type: 'EcdsaSecp256k1VerificationKey2019',
         publicKeyJwk: authnKeys.publicJwk,
         purposes: ['authentication']
@@ -38,9 +38,9 @@
     ],
     services: [
       {
-        id: 'domain-1',
+        id: 'domain-02',
         type: 'LinkedDomains',
-        serviceEndpoint: 'https://foo.example.com'
+        serviceEndpoint: 'https://test.example.com'
       }
     ]
   };

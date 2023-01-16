@@ -1,5 +1,5 @@
-import Response from '@decentralized-identity/sidetree/dist/lib/common/Response';
-import ResponseStatus from '@decentralized-identity/sidetree/dist/lib/common/enums/ResponseStatus';
+import Response from '@k-solutions/sidetree/lib/common/Response';
+import ResponseStatus from '@k-solutions/sidetree/lib/common/enums/ResponseStatus';
 
 /**
  * Error class used as a response to external requests.

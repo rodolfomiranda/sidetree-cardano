@@ -1,7 +1,7 @@
 import CardanoTransactionModel from './models/CardanoTransactionModel';
 import { Cursor } from 'mongodb';
 import ITransactionMetadataStore from './interfaces/ITransactionMetadataStore';
-import MongoDbStore from '@decentralized-identity/sidetree/dist/lib/common/MongoDbStore';
+import MongoDbStore from '@k-solutions/sidetree/lib/common/MongoDbStore';
 
 /**
  * Implementation of ITransactionMetadataStore using MongoDB database.

@@ -4,7 +4,7 @@ let
   project = pkgs.callPackage ./yarn-project.nix {
 
     # Example of selecting a specific version of Node.js.
-    nodejs = pkgs.nodejs-14_x;
+    nodejs = pkgs.nodejs;
 
   } {
 
@@ -20,7 +20,7 @@ in project.overrideAttrs (oldAttrs: {
 
   # Example of adding packages to the build environment.
   # Especially dependencies with native modules may need a Python installation.
-  # buildInputs = oldAttrs.buildInputs ++ [ pkgs.python3 ];
+  buildInputs = oldAttrs.buildInputs ++ [ pkgs.typescript ];
 
   # Example of invoking a build step in your project.
   buildPhase = ''

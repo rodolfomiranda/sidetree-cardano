@@ -7,9 +7,9 @@ import {
   SidetreeResponse,
   SidetreeResponseModel,
   SidetreeVersionModel
-} from '@decentralized-identity/sidetree';
-import Ipfs from '@decentralized-identity/sidetree/dist/lib/ipfs/Ipfs';
-import ResponseStatus from '@decentralized-identity/sidetree/dist/lib/common/enums/ResponseStatus';
+} from '@k-solutions/sidetree/lib';
+import Ipfs from '@k-solutions/sidetree/lib/ipfs/Ipfs';
+import ResponseStatus from '@k-solutions/sidetree/lib/common/enums/ResponseStatus';
 const cors = require('koa2-cors');
 
 /** Sidetree Core Service */
@@ -30,6 +30,7 @@ if (process.env.CORE_CONFIG_FILE_PATH === undefined) {
   console.log(`Loading core config from ${configFilePath}...`);
 }
 const config: ServerConfig = require(configFilePath);
+console.log(`Sidetree config: ${config}`);
 
 // Selecting versioning file, environment variable overrides default config file.
 let versioningConfigFilePath = '../json/testnet-core-versioning.json';
@@ -40,6 +41,7 @@ if (process.env.CORE_VERSIONING_CONFIG_FILE_PATH === undefined) {
   versioningConfigFilePath = process.env.CORE_VERSIONING_CONFIG_FILE_PATH;
   console.log(`Loading core versioning config from ${versioningConfigFilePath}...`);
 }
+
 const coreVersions: SidetreeVersionModel[] = require(versioningConfigFilePath);
 
 const ipfsFetchTimeoutInSeconds = 10;

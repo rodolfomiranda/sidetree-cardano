@@ -1,29 +1,29 @@
 /* eslint-disable sort-imports */
 import * as semver from 'semver';
 import * as timeSpan from 'time-span';
-import { ISidetreeEventEmitter, ISidetreeLogger } from '@decentralized-identity/sidetree/dist/lib';
+import { ISidetreeEventEmitter, ISidetreeLogger } from '@k-solutions/sidetree/lib';
 import CardanoClient from './CardanoClient';
 import CardanoServiceStateModel from './models/CardanoServiceStateModel';
 import CardanoTransactionModel from './models/CardanoTransactionModel';
 import ErrorCode from './ErrorCode';
 import EventCode from './EventCode';
-import EventEmitter from '@decentralized-identity/sidetree/dist/lib/common/EventEmitter';
+import EventEmitter from '@k-solutions/sidetree/lib/common/EventEmitter';
 import ICardanoConfig from './ICardanoConfig';
-import LogColor from '@decentralized-identity/sidetree/dist/lib//common/LogColor';
-import Logger from '@decentralized-identity/sidetree/dist/lib//common/Logger';
+import LogColor from '@k-solutions/sidetree/lib//common/LogColor';
+import Logger from '@k-solutions/sidetree/lib//common/Logger';
 import MongoDbTransactionMetadataStore from './MongoDbTransactionMetadataStore';
-import MongoDbServiceStateStore from '@decentralized-identity/sidetree/dist/lib/common/MongoDbServiceStateStore';
-import MongoDbTransactionStore from '@decentralized-identity/sidetree/dist/lib/common/MongoDbTransactionStore';
+import MongoDbServiceStateStore from '@k-solutions/sidetree/lib/common/MongoDbServiceStateStore';
+import MongoDbTransactionStore from '@k-solutions/sidetree/lib/common/MongoDbTransactionStore';
 import Monitor from './Monitor';
 import RequestError from './RequestError';
-import ResponseStatus from '@decentralized-identity/sidetree/dist/lib/common/enums/ResponseStatus';
-import ServiceInfoProvider from '@decentralized-identity/sidetree/dist/lib/common/ServiceInfoProvider';
-import ServiceVersionModel from '@decentralized-identity/sidetree/dist/lib/common/models/ServiceVersionModel';
-import SharedErrorCode from '@decentralized-identity/sidetree/dist/lib//common/SharedErrorCode';
-import SidetreeError from '@decentralized-identity/sidetree/dist/lib//common/SidetreeError';
-import TransactionFeeModel from '@decentralized-identity/sidetree/dist/lib/common/models/TransactionFeeModel';
-import TransactionModel from '@decentralized-identity/sidetree/dist/lib/common/models/TransactionModel';
-import ValueTimeLockModel from '@decentralized-identity/sidetree/dist/lib/common/models/ValueTimeLockModel';
+import ResponseStatus from '@k-solutions/sidetree/lib/common/enums/ResponseStatus';
+import ServiceInfoProvider from '@k-solutions/sidetree/lib/common/ServiceInfoProvider';
+import ServiceVersionModel from '@k-solutions/sidetree/lib/common/models/ServiceVersionModel';
+import SharedErrorCode from '@k-solutions/sidetree/lib//common/SharedErrorCode';
+import SidetreeError from '@k-solutions/sidetree/lib//common/SidetreeError';
+import TransactionFeeModel from '@k-solutions/sidetree/lib/common/models/TransactionFeeModel';
+import TransactionModel from '@k-solutions/sidetree/lib/common/models/TransactionModel';
+import ValueTimeLockModel from '@k-solutions/sidetree/lib/common/models/ValueTimeLockModel';
 
 /**
  * Object representing a blockchain time and hash
@@ -65,7 +65,7 @@ export default class CardanoProcessor {
   public constructor (private config: ICardanoConfig) {
     this.serviceStateStore = new MongoDbServiceStateStore(config.mongoDbConnectionString, config.databaseName);
     this.transactionMetadataStore = new MongoDbTransactionMetadataStore(config.mongoDbConnectionString, config.databaseName);
-    this.transactionStore = new MongoDbTransactionStore();
+    this.transactionStore = new MongoDbTransactionStore(config.mongoDbConnectionString, config.databaseName);
     // this.spendingMonitor = new SpendingMonitor(config.cardanoFeeSpendingCutoffInLovelaces, this.transactionStore);
 
     this.serviceInfoProvider = new ServiceInfoProvider('cardano');
@@ -92,7 +92,7 @@ export default class CardanoProcessor {
 
     await this.serviceStateStore.initialize();
     await this.transactionMetadataStore.initialize();
-    await this.transactionStore.initialize(this.config.mongoDbConnectionString, this.config.databaseName);
+    await this.transactionStore.initialize();
     await this.cardanoClient.initialize();
     await this.upgradeDatabaseIfNeeded();
 

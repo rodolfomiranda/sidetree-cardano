@@ -1,0 +1,51 @@
+Your update key:
+{
+  publicJwk: {
+    kty: 'EC',
+    crv: 'secp256k1',
+    x: 'f6LFbEzURnH3Sbava6BqzmMib7M7_KEJhVNGjni3i80',
+    y: '9WbkZQjlE55TPaxWrqbUhGRk8fb1uVtQ1NK_kS1B8ms'
+  },
+  privateJwk: {
+    kty: 'EC',
+    crv: 'secp256k1',
+    d: 'RbXTwhyrPGQstpuAtK60xF9OxroPFIO9KdvABV89uMs',
+    x: 'f6LFbEzURnH3Sbava6BqzmMib7M7_KEJhVNGjni3i80',
+    y: '9WbkZQjlE55TPaxWrqbUhGRk8fb1uVtQ1NK_kS1B8ms'
+  }
+}
+Your recovery key:
+{
+  publicJwk: {
+    kty: 'EC',
+    crv: 'secp256k1',
+    x: '73j4kM7M4XwLiS60jQldqYCKjOqq-G9B5vE3tKhlJw8',
+    y: '4cgi4kSurpc40dLL7Y0MR2ZuPDWp2ykeaghCpWTI8Rc'
+  },
+  privateJwk: {
+    kty: 'EC',
+    crv: 'secp256k1',
+    d: 'CPJQDovUQaPwMbjmdW34COrAJw4QSb4vaKbskia1C6g',
+    x: '73j4kM7M4XwLiS60jQldqYCKjOqq-G9B5vE3tKhlJw8',
+    y: '4cgi4kSurpc40dLL7Y0MR2ZuPDWp2ykeaghCpWTI8Rc'
+  }
+}
+Your DID authentication key:
+{
+  publicJwk: {
+    kty: 'EC',
+    crv: 'secp256k1',
+    x: 'efFIbRRkAT3EFnBDaBJk6KI_dQW-E5ecGzCOhx8_etA',
+    y: 'Zbryv3bVnbaODZpbnXIllXZNp-p9yWA7YZ35KcUuEw4'
+  },
+  privateJwk: {
+    kty: 'EC',
+    crv: 'secp256k1',
+    d: 'BBzFUy-zdvS0rjbL8eAXpcnxZ5yDIeXE9TEx-jdIH6s',
+    x: 'efFIbRRkAT3EFnBDaBJk6KI_dQW-E5ecGzCOhx8_etA',
+    y: 'Zbryv3bVnbaODZpbnXIllXZNp-p9yWA7YZ35KcUuEw4'
+  }
+}
+POST operation: {"type":"create","suffixData":{"deltaHash":"EiC04tL6J_z02nR7K5LJxSSw9D8B-VUnhywVrsXjQgP9Zg","recoveryCommitment":"EiCZt_AXCHzOJK2wUD2ptLjaX653kCuoBbGQBki-ECLFew"},"delta":{"updateCommitment":"EiAIkq0yyIsZ0CBkq9U8n5qUQzw6LuoMV42_X8R8Ttll-w","patches":[{"action":"replace","document":{"publicKeys":[{"id":"key-01","type":"EcdsaSecp256k1VerificationKey2019","publicKeyJwk":{"kty":"EC","crv":"secp256k1","x":"efFIbRRkAT3EFnBDaBJk6KI_dQW-E5ecGzCOhx8_etA","y":"Zbryv3bVnbaODZpbnXIllXZNp-p9yWA7YZ35KcUuEw4"},"purposes":["authentication"]}],"services":[{"id":"domain-01","type":"LinkedDomains","serviceEndpoint":"https://foo.example.com"}]}}]}}
+{"@context":"https://w3id.org/did-resolution/v1","didDocument":{"id":"did:ada:EiDu77NynLwUxMtLXZmSY3NnerqJrEvJcfn9ZBvYNpRrRQ","@context":["https://www.w3.org/ns/did/v1",{"@base":"did:ada:EiDu77NynLwUxMtLXZmSY3NnerqJrEvJcfn9ZBvYNpRrRQ"}],"service":[{"id":"#domain-01","type":"LinkedDomains","serviceEndpoint":"https://foo.example.com"}],"verificationMethod":[{"id":"#key-01","controller":"","type":"EcdsaSecp256k1VerificationKey2019","publicKeyJwk":{"kty":"EC","crv":"secp256k1","x":"efFIbRRkAT3EFnBDaBJk6KI_dQW-E5ecGzCOhx8_etA","y":"Zbryv3bVnbaODZpbnXIllXZNp-p9yWA7YZ35KcUuEw4"}}],"authentication":["#key-01"]},"didDocumentMetadata":{"method":{"published":false,"recoveryCommitment":"EiCZt_AXCHzOJK2wUD2ptLjaX653kCuoBbGQBki-ECLFew","updateCommitment":"EiAIkq0yyIsZ0CBkq9U8n5qUQzw6LuoMV42_X8R8Ttll-w"},"canonicalId":"did:ada:EiDu77NynLwUxMtLXZmSY3NnerqJrEvJcfn9ZBvYNpRrRQ"}}
+Your generated DID: did:ada:EiDu77NynLwUxMtLXZmSY3NnerqJrEvJcfn9ZBvYNpRrRQ
