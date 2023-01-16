@@ -7,9 +7,9 @@ import {
   SidetreeResponse,
   SidetreeResponseModel,
   SidetreeVersionModel
-} from '@k-solutions/sidetree/lib';
-import Ipfs from '@k-solutions/sidetree/lib/ipfs/Ipfs';
-import ResponseStatus from '@k-solutions/sidetree/lib/common/enums/ResponseStatus';
+} from '@k-solutions/sidetree';
+import Ipfs from '@k-solutions/sidetree/dist/lib/ipfs/Ipfs';
+import ResponseStatus from '@k-solutions/sidetree/dist/lib/common/enums/ResponseStatus';
 const cors = require('koa2-cors');
 
 /** Sidetree Core Service */

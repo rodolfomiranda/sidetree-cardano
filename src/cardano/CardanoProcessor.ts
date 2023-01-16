@@ -7,23 +7,23 @@ import CardanoServiceStateModel from './models/CardanoServiceStateModel';
 import CardanoTransactionModel from './models/CardanoTransactionModel';
 import ErrorCode from './ErrorCode';
 import EventCode from './EventCode';
-import EventEmitter from '@k-solutions/sidetree/lib/common/EventEmitter';
+import EventEmitter from '@k-solutions/sidetree/dist/lib/common/EventEmitter';
 import ICardanoConfig from './ICardanoConfig';
-import LogColor from '@k-solutions/sidetree/lib//common/LogColor';
-import Logger from '@k-solutions/sidetree/lib//common/Logger';
+import LogColor from '@k-solutions/sidetree/dist/lib//common/LogColor';
+import Logger from '@k-solutions/sidetree/dist/lib//common/Logger';
 import MongoDbTransactionMetadataStore from './MongoDbTransactionMetadataStore';
-import MongoDbServiceStateStore from '@k-solutions/sidetree/lib/common/MongoDbServiceStateStore';
-import MongoDbTransactionStore from '@k-solutions/sidetree/lib/common/MongoDbTransactionStore';
+import MongoDbServiceStateStore from '@k-solutions/sidetree/dist/lib/common/MongoDbServiceStateStore';
+import MongoDbTransactionStore from '@k-solutions/sidetree/dist/lib/common/MongoDbTransactionStore';
 import Monitor from './Monitor';
 import RequestError from './RequestError';
-import ResponseStatus from '@k-solutions/sidetree/lib/common/enums/ResponseStatus';
-import ServiceInfoProvider from '@k-solutions/sidetree/lib/common/ServiceInfoProvider';
-import ServiceVersionModel from '@k-solutions/sidetree/lib/common/models/ServiceVersionModel';
-import SharedErrorCode from '@k-solutions/sidetree/lib//common/SharedErrorCode';
-import SidetreeError from '@k-solutions/sidetree/lib//common/SidetreeError';
-import TransactionFeeModel from '@k-solutions/sidetree/lib/common/models/TransactionFeeModel';
-import TransactionModel from '@k-solutions/sidetree/lib/common/models/TransactionModel';
-import ValueTimeLockModel from '@k-solutions/sidetree/lib/common/models/ValueTimeLockModel';
+import ResponseStatus from '@k-solutions/sidetree/dist/lib/common/enums/ResponseStatus';
+import ServiceInfoProvider from '@k-solutions/sidetree/dist/lib/common/ServiceInfoProvider';
+import ServiceVersionModel from '@k-solutions/sidetree/dist/lib/common/models/ServiceVersionModel';
+import SharedErrorCode from '@k-solutions/sidetree/dist/lib//common/SharedErrorCode';
+import SidetreeError from '@k-solutions/sidetree/dist/lib//common/SidetreeError';
+import TransactionFeeModel from '@k-solutions/sidetree/dist/lib/common/models/TransactionFeeModel';
+import TransactionModel from '@k-solutions/sidetree/dist/lib/common/models/TransactionModel';
+import ValueTimeLockModel from '@k-solutions/sidetree/dist/lib/common/models/ValueTimeLockModel';
 
 /**
  * Object representing a blockchain time and hash

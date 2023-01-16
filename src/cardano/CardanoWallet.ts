@@ -5,7 +5,7 @@ import CardanoProtocolParameters from './models/CardanoProtocolParameters';
 import CardanoSidetreeTransactionModel from './models/CardanoSidetreeTransactionModel';
 import ErrorCode from './ErrorCode';
 import ICardanoWallet from './interfaces/ICardanoWallet';
-import SidetreeError from '@k-solutions/sidetree/lib/common/SidetreeError';
+import SidetreeError from '@decentralized-identity/sidetree/dist/lib/common/SidetreeError';
 const bip39 = require('bip39-light');
 /**
  * Represents a Cardano wallet.

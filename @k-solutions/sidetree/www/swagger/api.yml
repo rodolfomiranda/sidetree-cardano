@@ -1,0 +1,181 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+
+  - description: Sidetree-Cardano localhost
+    url: http://localhost:3000/
+info:
+  description: Sidetree-Cardano API.
+  version: "1.0.0"
+  title: Sidetree-Cardano REST API
+tags:
+  - name: Sidetree
+    description: APIs for interacting with the Sidetree Node.
+paths:
+  /operations:
+    post:
+      tags:
+        - Sidetree
+      summary: Writes an Operation to Sidetree.
+      operationId: writeSidetreeOperation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/SidetreeCreateOperation'
+                - $ref: '#/components/schemas/SidetreeUpdateOperation'
+                - $ref: '#/components/schemas/SidetreeRecoverOperation'
+                - $ref: '#/components/schemas/SidetreeDeactivateOperation'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Server Error
+  /identifiers/{did-with-or-without-initial-state}:
+    get:
+      tags:
+        - Sidetree
+      summary: Resolve a Sidetree DID.
+      operationId: resolveSidetreeDID
+      parameters:
+        - in: path
+          required: true
+          name: did-with-or-without-initial-state
+          schema:
+            type: string
+          description: A DID to resolve
+          example: "did:sidetree:EiAC2jrPmjaLI4xMiHTGWaKK29HmU9USFWA22lYc6CV0Bg?-sidetree-initial-state=eyJ0eXBlIjoiY3JlYXRlIiwic3VmZml4RGF0YSI6ImV5SnZjR1Z5WVhScGIyNUVZWFJoU0dGemFDSTZJa1ZwUW13Mk9IUktSRFp3YmxadVdHWTFURUZqY1VGWWJsRkhOR2syY2xKSGVuUmZlazEzYXpkaFZWUTBlVUVpTENKeVpXTnZkbVZ5ZVV0bGVTSTZleUp3ZFdKc2FXTkxaWGxJWlhnaU9pSXdNalE0WkRWaFlUbGxZamxqWVdZNE5EWmhNalZoTkRReE1qbGlPR013TURBek9HUTFObVJsTlROaVptTTNZbUU1TkRneU1tRTFNV1ZpTUdabU1EazNNbU1pZlN3aWJtVjRkRkpsWTI5MlpYSjVUM1J3U0dGemFDSTZJa1ZwUTI5aU5YZFZkMEV5U0VObVRGUjZjbmRHZG14b2JVSm5TRnB0ZEVsZmRXVXhNa1JuWHpsVlkxOXdlR2NpZlEiLCJvcGVyYXRpb25EYXRhIjoiZXlKdVpYaDBWWEJrWVhSbFQzUndTR0Z6YUNJNklrVnBSSEZMVDJ0ZlRsZHVZMkZrT0RJelYySm9WVGwyZUVwcmQwVnVTVFZHUlVNeU0xbDViRE5rUlZnNWJtY2lMQ0prYjJOMWJXVnVkQ0k2ZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdlpHbGtMM1l4SWl3aWNIVmliR2xqUzJWNUlqcGJleUpwWkNJNklpTnphV2R1YVc1blMyVjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TTJKa01HVTBOREF3TlRKaU9UUXlaVE13T0dJNVptUXdPR1JpTWpsaFltTTRaRFl6TmpZNE5ESXpNMkZsT0Raa09Ea3lZVEk1WmpCak5qRTJabVV3TldVaWZWMHNJbk5sY25acFkyVWlPbHQ3SW1sa0lqb2lTV1JsYm5ScGRIbElkV0lpTENKMGVYQmxJam9pU1dSbGJuUnBkSGxJZFdJaUxDSnpaWEoyYVdObFJXNWtjRzlwYm5RaU9uc2lRR052Ym5SbGVIUWlPaUp6WTJobGJXRXVhV1JsYm5ScGRIa3VabTkxYm1SaGRHbHZiaTlvZFdJaUxDSkFkSGx3WlNJNklsVnpaWEpUWlhKMmFXTmxSVzVrY0c5cGJuUWlMQ0pwYm5OMFlXNWpaWE1pT2xzaVpHbGtPbk5wWkdWMGNtVmxPblpoYkhWbE1DSmRmWDFkZlgwIn0"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '410':
+          description: DID is deactivated
+        '500':
+          description: Server Error
+  /version:
+    get:
+      tags:
+        - Sidetree
+      operationId: getVersion
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Server Error        
+          
+components:
+  schemas:
+    Version:
+      type: object
+      properties:
+        name: 
+          type: string
+          description: A string representing the name of the service.
+        version: 
+          type: string
+          description: A string representing the version of currently running service.
+      example: {
+        "name": "bitcoin",
+        "version": "1.0.0"
+      }
+    SidetreeCreateOperation:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [create]
+          example: "create"
+        suffix_data:
+          type: string
+          description: The Base64URL encoded Suffix Data Object.
+        delta:
+          type: string
+          description: The Base64URL encoded Create Operation Data Object.
+      description: Create operation.
+    SidetreeUpdateOperation:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [update]
+          example: "update"
+        did_suffix:
+          type: string
+          description: The unique identifier string within a DID URI.
+        update_reveal_value:
+          type: string
+          description: The last update commitment value.
+        delta:
+          type: string
+          description: The Base64URL encoded Update Operation Data Object.
+        signed_data:
+          type: string
+          description: The JWS object as defined in Map File for Update operations.
+      description: Update operation.
+    SidetreeRecoverOperation:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [recover]
+          description: Recover operation.
+          example: "recover"
+        did_suffix:
+          type: string
+          description: The unique identifier string within a DID URI.
+        recovery_reveal_value:
+          type: string
+          description: The last recovery commitment value.
+        delta:
+          type: string
+          description: The Base64URL encoded Recover Operation Data Object.
+        signed_data:
+          type: string
+          description: The JWS object as defined in Anchor File for Recovery operations.
+      description: Recover operation.
+    SidetreeDeactivateOperation:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [deactivate]
+          example: "deactivate"
+        did_suffix:
+          type: string
+          description: The unique identifier string within a DID URI.
+        recovery_reveal_value:
+          type: string
+          description: The last recovery commitment value.
+        signed_data:
+          type: string
+          description: The JWS object as defined in Anchor File for Deactivate operations.
+      description: Deactivate operation.
+
+         
